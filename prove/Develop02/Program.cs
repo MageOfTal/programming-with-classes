@@ -6,41 +6,19 @@ class Program
 {
     static void Main(string[] args)
     {   
-        Console.WriteLine("What is your grade percentage number?");
-        int grade = int.Parse(Console.ReadLine());
-        string gradeLetter;
-        if (grade >= 90)
+        //initialize journal and userCommand
+        Journal userJournal = new();
+        string userCommand = "";
+        do
         {
-            gradeLetter = "A";
+            Console.WriteLine("Welcome to Journal! Commands: Journal, Save, Load, Quit");
+            string userCommand = Console.ReadLine();
+            if (userCommand == "Journal")
+            {
+                userJournal.makeEntry();
+            }
         }
-        else if (grade >= 80)
-        {
-            gradeLetter = "B";
-        }
-        else if (grade >= 70)
-        {
-            gradeLetter = "C";
-        }
-        else if (grade >= 60)
-        {
-            gradeLetter = "D";
-        }
-        else
-        {
-            gradeLetter = "F";
-        }
-
-        Console.WriteLine($"Your grade is {gradeLetter}!");
-
-        if (grade >= 70)
-        {
-            Console.WriteLine("You passed the class!");
-        }
-        else
-        {
-            Console.WriteLine("You didn't pass the class. Better luck next time!");
-        }
-
+        while (userCommand != "Quit");
         
     }
 }
