@@ -6,18 +6,14 @@ class JournalEntry
 
     public string promptEntry;
 
-    public string date;
+    public string entryDate;
 
     //behaviors (member functions or *methods*)
 
     public void displayEntry()
     {
-        prompt promptList = new();
-        promptList.SelectPrompt();
-        {
-            
-        }
-                Console.WriteLine($"{date}\n{promptEntry}\n{userEntry}\n");
+
+        Console.WriteLine($"{entryDate}\n{promptEntry}\n{userEntry}\n");
     }
 
 }

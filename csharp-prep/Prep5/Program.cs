@@ -35,5 +35,6 @@ class Program
         number = SquareNumber(number);
         DisplayResult(userName, number);
         
+        
     }
 }

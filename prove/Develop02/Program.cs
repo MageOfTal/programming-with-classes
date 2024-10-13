@@ -8,14 +8,26 @@ class Program
     {   
         //initialize journal and userCommand
         Journal userJournal = new();
-        string userCommand = "";
+        string userCommand;
         do
         {
-            Console.WriteLine("Welcome to Journal! Commands: Journal, Save, Load, Quit");
-            string userCommand = Console.ReadLine();
+            Console.WriteLine("Welcome to Journal! Commands: Journal, Display, Save, Load, Quit");
+            userCommand = Console.ReadLine();
             if (userCommand == "Journal")
             {
                 userJournal.makeEntry();
+            }
+            if (userCommand == "Display")
+            {
+                userJournal.displayJournal();
+            }
+            if (userCommand == "Save")
+            {
+                userJournal.saveJournal();
+            }
+            if (userCommand == "Load")
+            {
+                userJournal.loadJournal();
             }
         }
         while (userCommand != "Quit");
