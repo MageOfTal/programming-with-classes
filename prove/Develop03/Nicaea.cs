@@ -1,14 +1,15 @@
-class JournalEntry
+class Nicaea
 {
     //attributes (member variables)
 
-    public string userEntry;
-
-    public string promptEntry;
-
-    public string entryDate;
+    private int count = new();
 
     //behaviors (member functions or *methods*)
+
+    public void displayVerse()
+    {
+        Dictionary<string,string> myScriptures = Scriptures.get();
+    }
 
     public void displayEntry()
     {
