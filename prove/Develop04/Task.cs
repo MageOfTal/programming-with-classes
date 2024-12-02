@@ -5,6 +5,8 @@ public class Task
 
     public bool complete;
 
+    public Checklist ParentChecklist;
+
     public string taskName;
 
     public int completeReward;

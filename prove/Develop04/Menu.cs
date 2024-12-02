@@ -246,12 +246,14 @@ public class Menu
 
             if (taskList[completedTaskIndex] is Checklist c)
             {
+    
                 completeTask(c.listedTasks);
+                
             }
 
             else
             {
-                
+                taskList[completedTaskIndex].completeTask();
                 displayUserData();
                 return;
 
@@ -271,33 +273,36 @@ public class Menu
     {
         Console.WriteLine("Is your task (Simple), (Daily), a (Checklist), or (Repeatable)? Press enter to cancel.");
         string taskType = Console.ReadLine();
-        if (string.IsNullOrWhiteSpace(taskType))
+        try 
         {
-            changeSystemMessage("Cancelled task creation.");
-            displayUserData();
-            return;
+            if (string.IsNullOrWhiteSpace(taskType))
+            {
+                changeSystemMessage("Cancelled task creation.");
+                displayUserData();
+                return;
+            }
+            if (taskType.ToLower() == "simple")
+            {
+                Simple newTask = new();
+                currentPlayer.playerTasks.Add(newTask.createTask());
+            }
+            else if (taskType.ToLower() == "daily")
+            {
+                Daily newTask = new();
+                currentPlayer.playerTasks.Add(newTask.createTask());
+            }
+            else if (taskType.ToLower() == "checklist")
+            {
+                Checklist newTask = new();
+                currentPlayer.playerTasks.Add(newTask.createTask());
+            }
+            else if (taskType.ToLower() == "repeatable")
+            {
+                Repeatable newTask = new();
+                currentPlayer.playerTasks.Add(newTask.createTask());
+            }
         }
-        if (taskType.ToLower() == "simple")
-        {
-            Simple newTask = new();
-            currentPlayer.playerTasks.Add(newTask.createTask());
-        }
-        else if (taskType.ToLower() == "daily")
-        {
-            Daily newTask = new();
-            currentPlayer.playerTasks.Add(newTask.createTask());
-        }
-        else if (taskType.ToLower() == "checklist")
-        {
-            Checklist newTask = new();
-            currentPlayer.playerTasks.Add(newTask.createTask());
-        }
-        else if (taskType.ToLower() == "repeatable")
-        {
-            Repeatable newTask = new();
-            currentPlayer.playerTasks.Add(newTask.createTask());
-        }
-        else
+        catch
         {
             changeSystemMessage("No valid type entered.");
             displayUserData();

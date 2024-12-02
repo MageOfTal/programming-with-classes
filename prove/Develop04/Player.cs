@@ -14,7 +14,7 @@ public class Player
     {
         get
         {
-            return levelProgress/nextLevelReq;
+            return (double)levelProgress/nextLevelReq;
         }
     }
 
