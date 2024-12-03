@@ -5,7 +5,7 @@ class prompt
 {
     //attributes (member variables)
 
-    public List<string> promptList = [
+    public List<string> _promptList = [
             "What made you smile today?",
             "Describe a recent challenge and what you learned from it.",
             "What are three things you’re grateful for right now?",
@@ -19,8 +19,8 @@ class prompt
     public string SelectPrompt()
     {
         Random randomNumbers = new();
-        int promptNum = randomNumbers.Next(0, promptList.Count());
-        return promptList[promptNum];
+        int promptNum = randomNumbers.Next(0, _promptList.Count());
+        return _promptList[promptNum];
     }
 
 }

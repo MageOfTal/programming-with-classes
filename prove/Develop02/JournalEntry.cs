@@ -2,18 +2,18 @@ class JournalEntry
 {
     //attributes (member variables)
 
-    public string userEntry;
+    public string _userEntry;
 
-    public string promptEntry;
+    public string _promptEntry;
 
-    public string entryDate;
+    public string _entryDate;
 
     //behaviors (member functions or *methods*)
 
     public void displayEntry()
     {
 
-        Console.WriteLine($"{entryDate}\n{promptEntry}\n{userEntry}\n");
+        Console.WriteLine($"{_entryDate}\n{_promptEntry}\n{_userEntry}\n");
     }
 
 }
