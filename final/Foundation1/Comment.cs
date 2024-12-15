@@ -8,7 +8,7 @@ class Comment
 
     //behaviors (member functions or *methods*)
 
-     public Comment(string username, string text)
+    public Comment(string username, string text)
     {
         _username = username;
         _text = text;

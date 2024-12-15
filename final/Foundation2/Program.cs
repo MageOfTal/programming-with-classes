@@ -18,8 +18,8 @@ class Program
         products2.Add(product1);
         products2.Add(product3);
 
-        Address address1 = new("Maple Ave", "Villeville", "Washington", "USA");
-        Address address2 = new("Oak Lane", "Bestland", "Oregon", "Japan");
+        Address address1 = new("243 Maple Ave", "Villeville", "Washington", "USA");
+        Address address2 = new("111 Oak Lane", "Bestland", "Oregon", "Japan");
 
         Customer Dave = new(address1,"Dave Jones");
         Customer Lara = new(address2,"Lara Laura");

@@ -8,7 +8,7 @@ class Video
 
     public int _length;
 
-    public List<Comment> _comments;
+    public List<Comment> _comments = new();
 
     //behaviors (member functions or *methods*)
 

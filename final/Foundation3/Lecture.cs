@@ -2,34 +2,24 @@ class Lecture : Event
 {
 //attributes (member variables)
 
-    private string _name;
+    private string _speaker;
 
-    private Address _address;
-
-    
+    private int _capacity;
 
     //behaviors (member functions or *methods*)
 
-    public bool CheckUSAddress()
+    public override string FullDetails()
     {
-        return _address.CheckUSAddress();
+        string details = StandardDetails();
+        details += $"\n{this.GetType().Name}\nSpeaker: {_speaker}\nCapacity: {_capacity}";
+
+        return details;
     }
 
-    public string GetName()
+    public Lecture (string title, string description, string date, string time, Address address, string speaker, int capacity): base(title, description, date, time, address)
     {
-        return _name;
+        _speaker = speaker;
+
+        _capacity = capacity;
     }
-
-    public string GetAddress()
-    {
-        return _address.GetAddress();
-    }
-
-    public Customer (Address address, string name)
-    {
-        _address = address;
-
-        _name = name;
-    }
-
 }

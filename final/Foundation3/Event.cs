@@ -1,4 +1,4 @@
-class Event
+abstract class Event
 {
 //attributes (member variables)
 
@@ -10,27 +10,40 @@ class Event
 
     private string _time;
 
-    private string _address;
+    private Address _address;
 
     //behaviors (member functions or *methods*)
+
+    public Event (string title, string description, string date, string time, Address address)
+    {
+        _title = title;
+
+        _description = description;
+
+        _date = date;
+
+        _time = time;
+
+        _address = address;
+
+    }
 
     public string StandardDetails()
     {
         string details = "";
 
-        details +=$"{_title}\n{description}\n{date} {time}\n{address}";
+        details +=$"{_title}\n{_description}\n{_date} {_time}\n{_address.GetAddress()}";
 
         return details;
     }
 
-    public virtual string FullDetails()
-    {
-        return "";
-    }
+    public abstract string FullDetails();
 
-    public virtual string ShortDescription()
+    public string ShortDescription()
     {
-        return "";
+        string details = "";
+        details += $"{this.GetType().Name}\n{_title}\n{_date}";
+        return details;
     }
 
 }

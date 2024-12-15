@@ -47,6 +47,7 @@ public virtual Task createSubTask(int i)
 public override Task createTask()
     {
         itemsDone = 0;
+        
         try
         {
 

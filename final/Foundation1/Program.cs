@@ -20,7 +20,7 @@ class Program
 
         video2._title = "The Drama Situation is Crazy";
         video2._author = "SlopServer";
-        video2._length = 5000;
+        video2._length = 3000;
         
         video2._comments.Add(new Comment("Piggy", "It's over for him"));
         video2._comments.Add(new Comment("SlopGobbler", "I can't believe he would do this"));
@@ -28,18 +28,32 @@ class Program
 
         Video video3 = new Video
         {
-            _title = "This pixel just changed Florbus speedruns forever",
+            _title = "This pixel just changed Garble 67 speedruns forever",
             _author = "Game-R Us",
-            _length = 450
+            _length = 10000
         };
-        video3._comments.Add(new Comment("Grace", "Best explanation I've seen."));
-        video3._comments.Add(new Comment("Hank", "A bit too fast-paced."));
-        video3._comments.Add(new Comment("Ivy", "Thank you for this!"));
+        video3._comments.Add(new Comment("BasementDweller", "Best two-and-a-half hours of my life."));
+        video3._comments.Add(new Comment("GarbleSpeedKing", "I'm getting that crown back."));
+        video3._comments.Add(new Comment("NormalGuy", "Ok but how will this effect the job market"));
 
         // Add videos to the list
         videos.Add(video1);
         videos.Add(video2);
         videos.Add(video3);
+
+        foreach (Video video in videos)
+        {
+            Console.WriteLine(video._title);
+            Console.WriteLine(video._author);
+            Console.WriteLine(video._length);
+
+            Console.WriteLine(video.GetCommentCount());
+            foreach (Comment comment in video._comments)
+            {
+                Console.WriteLine(comment._username);
+                Console.WriteLine(comment._text);
+            }
+        }
 
     }
 }
