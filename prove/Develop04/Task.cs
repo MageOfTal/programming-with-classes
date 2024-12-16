@@ -11,7 +11,7 @@ public class Task
 
     public int completeReward;
 
-    Player currentPlayer = Player.currentPlayer;
+    Player currentPlayer = Player.GetCurrentPlayer();
 
 
     //behaviors (member functions or *methods*)
@@ -44,7 +44,7 @@ public class Task
             Menu.changeSystemMessage("Invalid input while creating task.");
         }
 
-    throw new InvalidOperationException("Task creation failed due to invalid input.");
+        throw new InvalidOperationException("Task creation failed due to invalid input.");
 
         
     }

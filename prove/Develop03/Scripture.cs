@@ -39,13 +39,13 @@ class Scripture
 
         foreach (Word word in _scripture)
         {
-            if (word._isDisplayed == true)
+            if (word.GetIsDisplayed() == true)
             {
-                normalizedScripture += word._word;
+                normalizedScripture += word.GetWord();
             }
             else 
             {
-                normalizedScripture += new string('_',word._word.Length);
+                normalizedScripture += new string('_',word.GetWord().Length);
             }
 
             normalizedScripture += " ";
@@ -57,7 +57,7 @@ class Scripture
 
         foreach (Word word in _scripture)
         {
-            if (word._isDisplayed == true)
+            if (word.GetIsDisplayed() == true)
             {
                 areAllHidden = false;
             }
@@ -95,7 +95,7 @@ class Scripture
     
         foreach (Word word in _scripture)
         {
-            if (word._isDisplayed == true)
+            if (word.GetIsDisplayed() == true)
             {
                 unhiddenWords.Add(index);
             }

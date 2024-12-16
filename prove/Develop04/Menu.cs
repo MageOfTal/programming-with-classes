@@ -4,7 +4,7 @@ public class Menu
 {
     //attributes (member variables)
 
-    Player currentPlayer = Player.currentPlayer;
+    Player currentPlayer = Player.GetCurrentPlayer();
     static Menu MainMenu = new();
 
     private static string _systemMessage;
@@ -49,10 +49,10 @@ public class Menu
     {
         string XPBar = "";
         // Shows current level score/required level score, then starts XP bar with '('
-        XPBar += $"{currentPlayer.levelProgress}/{currentPlayer.nextLevelReq}    (";
+        XPBar += $"{currentPlayer.GetLevelProgress()}/{currentPlayer.GetNextLevelReq()}    (";
 
         // Creates up to 20 'progress' characters for the XP Bar
-        int progressChars = (int)Math.Round(currentPlayer.percentToLevel * 20);
+        int progressChars = (int)Math.Round(currentPlayer.GetPercentToLevel() * 20);
         XPBar += string.Concat(Enumerable.Repeat("=", progressChars));
 
         // Adds remaining characters out of the 20 as 'unfilled'
@@ -65,14 +65,14 @@ public class Menu
     }
     private string playerInfoDisplay()
     {
-        string playerData = $"{currentPlayer.playerName}    Level: {currentPlayer.playerLevel}    Score Mult: {currentPlayer.scoreMult}";
+        string playerData = $"{currentPlayer.GetPlayerName()}    Level: {currentPlayer.GetPlayerLevel()}    Score Mult: {currentPlayer.GetScoreMult()}";
         return playerData;
     }
 
     public void prestige()
     {
-        Console.WriteLine($"Last prestige level: {currentPlayer.previousPrestigeLv} Current level: {currentPlayer.playerLevel} Prestige level requirement: {currentPlayer.prestigeLevelRequirement}");
-        if (currentPlayer.playerLevel >= currentPlayer.prestigeLevelRequirement)
+        Console.WriteLine($"Last prestige level: {currentPlayer.GetPreviousPrestigeLv()} Current level: {currentPlayer.GetPlayerLevel()} Prestige level requirement: {currentPlayer.GetPrestigeLevelRequirement()}");
+        if (currentPlayer.GetPlayerLevel() >= currentPlayer.GetPrestigeLevelRequirement())
         {
             Console.WriteLine("Y to Prestige, Enter to cancel.");
             string input = Console.ReadLine();
@@ -101,17 +101,18 @@ public class Menu
     {
         foreach (Task task in tasks)
         {
+            int taskNumber = tasks.IndexOf(task)+1;
             if (task is Checklist checklist)
             {
-                Console.WriteLine($"{tasks.IndexOf(task)+1}. {task.taskName} ({checklist.itemsDone}/{checklist.listedTasks.Count()})");
+                Console.WriteLine($"{taskNumber}. {task.taskName} ({checklist.itemsDone}/{checklist.GetListedTasks().Count()})");
             }
             else if (task.complete == true)
             {
-                Console.WriteLine($"{tasks.IndexOf(task)+1}. {task.taskName} *");
+                Console.WriteLine($"{taskNumber}. {task.taskName} *");
             }
             else
             {
-                Console.WriteLine($"{tasks.IndexOf(task)+1}. {task.taskName}");
+                Console.WriteLine($"{taskNumber}. {task.taskName}");
             }
         }
         Console.WriteLine ("Enter to close, or select the number of a Checklist to see details.");
@@ -128,14 +129,29 @@ public class Menu
 
             if (tasks[taskIndex] is Checklist c)
             {
-                seeTasks(c.listedTasks);
+                Console.WriteLine($"Task name: {tasks[taskIndex].taskName}");
+                Console.WriteLine($"Completion Reward: {tasks[taskIndex].completeReward}");
+                Console.WriteLine($"Task type: {tasks[taskIndex].GetType().Name}");
+
+                seeTasks(c.GetListedTasks());
+            }
+
+            else
+            {
+                Console.WriteLine($"Task name: {tasks[taskIndex].taskName}");
+                Console.WriteLine($"Completion Reward: {tasks[taskIndex].completeReward} points");
+                Console.WriteLine($"Task type: {tasks[taskIndex].GetType().Name}");
+                Console.WriteLine("Enter to return");
+                Console.ReadLine();
+                displayUserData();
+                return;
+
             }
         }
         catch
         {
             changeSystemMessage("Invalid entry.");
             displayUserData();
-
             return;
         }
     }
@@ -147,11 +163,11 @@ public class Menu
         {
             if (task is Checklist checklist)
             {
-                Console.WriteLine($"{tasks.IndexOf(task)+1}. {task.taskName} ({checklist.itemsDone}/{checklist.listedTasks.Count()})");
+                Console.WriteLine($"{tasks.IndexOf(task)+1}. {task.taskName} ({checklist.itemsDone}/{checklist.GetListedTasks().Count()})");
             }
             else if (task.complete == true)
             {
-                Console.WriteLine($"{tasks.IndexOf(task)+1}. {task.taskName} ✔");
+                Console.WriteLine($"{tasks.IndexOf(task)+1}. {task.taskName} *");
             }
             else
             {
@@ -193,13 +209,15 @@ public class Menu
                     displayUserData();
                     return;
                 }
-                else if (input.ToLower() == "D")
+                else if (input.ToLower() == "d")
                 {
-                    taskList.Remove(taskList[taskIndex]);
+                    taskList.RemoveAt(taskIndex);
+                    displayUserData();
+                    return;
                 }
-                else if (input.ToLower() == "S")
+                else if (input.ToLower() == "s")
                 {
-                    deleteTask(c.listedTasks);
+                    deleteTask(c.GetListedTasks());
                 }
                 else 
                 {
@@ -207,12 +225,13 @@ public class Menu
                     displayUserData();
                     return;
                 }
-                completeTask(c.listedTasks);
             }
 
             else
             {
-                taskList[taskIndex].completeTask();
+                taskList.RemoveAt(taskIndex);
+                displayUserData();
+                return;
             }
         }
         catch
@@ -243,11 +262,17 @@ public class Menu
             {
                 throw new IndexOutOfRangeException();
             }
+            else if (taskList[completedTaskIndex].complete == true)
+            {
+                changeSystemMessage("That task is already complete.");
+                displayUserData();
+                return;
+            }
 
             if (taskList[completedTaskIndex] is Checklist c)
             {
     
-                completeTask(c.listedTasks);
+                completeTask(c.GetListedTasks());
                 
             }
 
@@ -284,22 +309,22 @@ public class Menu
             if (taskType.ToLower() == "simple")
             {
                 Simple newTask = new();
-                currentPlayer.playerTasks.Add(newTask.createTask());
+                currentPlayer.GetPlayerTasks().Add(newTask.createTask());
             }
             else if (taskType.ToLower() == "daily")
             {
                 Daily newTask = new();
-                currentPlayer.playerTasks.Add(newTask.createTask());
+                currentPlayer.GetPlayerTasks().Add(newTask.createTask());
             }
             else if (taskType.ToLower() == "checklist")
             {
                 Checklist newTask = new();
-                currentPlayer.playerTasks.Add(newTask.createTask());
+                currentPlayer.GetPlayerTasks().Add(newTask.createTask());
             }
             else if (taskType.ToLower() == "repeatable")
             {
                 Repeatable newTask = new();
-                currentPlayer.playerTasks.Add(newTask.createTask());
+                currentPlayer.GetPlayerTasks().Add(newTask.createTask());
             }
         }
         catch

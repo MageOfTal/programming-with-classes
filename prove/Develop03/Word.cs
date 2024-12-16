@@ -4,11 +4,20 @@ class Word
 {
     //attributes (member variables)
 
-    public string _word {get; private set;}
-    public bool _isDisplayed {get; private set;}
+    private string _word;
+    private bool _isDisplayed;
 
     //behaviors (member functions or *methods*)
 
+    public bool GetIsDisplayed()
+    {
+        return _isDisplayed;
+    }
+
+    public string GetWord()
+    {
+        return _word;
+    }
     public Word(string word)
     {
         _word = word;

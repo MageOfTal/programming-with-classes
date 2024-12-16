@@ -2,9 +2,9 @@ class Program
 {
     static void Main(string[] args)
     {
-        Player.currentPlayer.initializePlayer();
+        Player.GetCurrentPlayer().initializePlayer();
         Menu MainMenu = Menu.getMenu();
-        List<Task> taskList = Player.currentPlayer.playerTasks;
+        List<Task> taskList = Player.GetCurrentPlayer().GetPlayerTasks();
         MainMenu.displayUserData();
         while (true)
         {

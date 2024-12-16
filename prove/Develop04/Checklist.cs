@@ -3,28 +3,31 @@ public class Checklist : Task
 {
     //attributes (member variables)
 
-    public List<Task> listedTasks = new();
-
-    public int itemReward;
+    private List<Task> listedTasks = new();
 
     public int itemsDone {get; private set;}
 
-    Player currentPlayer = Player.currentPlayer;
+    Player currentPlayer = Player.GetCurrentPlayer();
 
 
     //behaviors (member functions or *methods*)
+
+    public List<Task> GetListedTasks()
+    {
+        return listedTasks;
+    }
 
     public override void completeTask()
     {
         currentPlayer.gainScore(completeReward);
         complete = true;
         //remove self from list
-        currentPlayer.playerTasks.Remove(this);
+        currentPlayer.GetPlayerTasks().Remove(this);
     }
 
-public virtual Task createSubTask(int i)
+    public virtual Task createSubTask(int i)
     {
-        Task newTask = new();
+        Subtask newTask = new();
 
         Console.WriteLine($"Name subtask {i+1}");
         newTask.taskName = Console.ReadLine();
@@ -44,7 +47,7 @@ public virtual Task createSubTask(int i)
         throw new InvalidOperationException("Task creation failed due to invalid input.");
 
     }
-public override Task createTask()
+    public override Task createTask()
     {
         itemsDone = 0;
         
