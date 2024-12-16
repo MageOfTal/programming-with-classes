@@ -12,7 +12,7 @@ class Scripture
 
         string[] words = scripture.Split(' ');
 
-        foreach (var word in words)
+        foreach (string word in words)
         {
             _scripture.Add(new Word(word));
         }
@@ -23,7 +23,7 @@ class Scripture
     {
         string[] words = scripture.Split(' ');
 
-        foreach (var word in words)
+        foreach (string word in words)
         {
             _scripture.Add(new Word(word));
         }
