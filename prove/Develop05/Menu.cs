@@ -1,57 +1,55 @@
-using System.Dynamic;
-using System.Linq;
-using System.Transactions;
+using System.Threading;
 public class Menu
 {
     //attributes (member variables)
 
     static Menu MainMenu = new();
 
-    public string _userName {get; private set;}
+    private string _userName;
 
-    private static string _systemMessage;
+    private string _systemMessage;
 
-    private string userOptions = "Would you like to do breathing, reflection, or listing today?";
+    private string userOptions = "Would you like to do breathing, reflection, or listing today?\nOr, check (completions).";
 
    //behaviors (member functions or *methods*)
 
-    public void getUser()
+    public void SetupUser()
     {
         Console.WriteLine("What is your name?");
 
         _userName = Console.ReadLine();
     }
 
-    public string returnUser()
+    public string GetUser()
     {
         return _userName;
     }
 
-    public static void clearSystemMessage()
+    public void ClearSystemMessage()
     {
         _systemMessage = "";
     }
-    public static void addSystemMessage(string message)
+    public void AddSystemMessage(string message)
     {
         _systemMessage += message + "\n";
     }
 
-    public static Menu getMenu ()
+    public static Menu GetMenu ()
     {
         return MainMenu;
     }
 
-    public static void changeSystemMessage (string message)
+    public void ChangeSystemMessage (string message)
     {
         _systemMessage = message + "\n";
     }
 
-    public void displayUserData ()
+    public void DisplayUserData ()
     {
         Console.WriteLine($"Hello {_userName}!");
         Console.WriteLine(userOptions);
         Console.WriteLine(_systemMessage);
-        clearSystemMessage();
+        ClearSystemMessage();
     }
 
 }
