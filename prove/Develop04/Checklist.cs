@@ -3,9 +3,9 @@ public class Checklist : Task
 {
     //attributes (member variables)
 
-    private List<Task> listedTasks = new();
+    private List<Task> _listedTasks = new();
 
-    public int itemsDone {get; private set;}
+    private int _itemsDone;
 
     Player currentPlayer = Player.GetCurrentPlayer();
 
@@ -14,13 +14,22 @@ public class Checklist : Task
 
     public List<Task> GetListedTasks()
     {
-        return listedTasks;
+        return _listedTasks;
+    }
+
+    public int GetItemsDone()
+    {
+        return _itemsDone;
+    }
+    public void SetItemsDone(int itemsDone)
+    {
+        _itemsDone = itemsDone;
     }
 
     public override void completeTask()
     {
-        currentPlayer.gainScore(completeReward);
-        complete = true;
+        currentPlayer.gainScore(GetCompleteReward());
+        SetComplete(true);
         //remove self from list
         currentPlayer.GetPlayerTasks().Remove(this);
     }
@@ -28,15 +37,18 @@ public class Checklist : Task
     public virtual Task createSubTask(int i)
     {
         Subtask newTask = new();
+        newTask.SetParentChecklist(this);
+
+        newTask.SetListReward(this.GetCompleteReward());
 
         Console.WriteLine($"Name subtask {i+1}");
-        newTask.taskName = Console.ReadLine();
+        newTask.SetTaskName(Console.ReadLine());
 
         Console.WriteLine("How many points for completing this subtask?\nSuggestions: Easy - 5, Medium - 15, Hard - 35, Very hard - 100");
         //make sure the user knows how to type in a number
         try
         {
-            newTask.completeReward = int.Parse(Console.ReadLine());
+            newTask.SetCompleteReward(int.Parse(Console.ReadLine()));
             return newTask;
         }
         catch
@@ -49,14 +61,16 @@ public class Checklist : Task
     }
     public override Task createTask()
     {
-        itemsDone = 0;
+        _itemsDone = 0;
         
         try
         {
 
             Console.WriteLine("Name your task");
-            taskName = Console.ReadLine();
+            
+            SetTaskName(Console.ReadLine());
             Console.WriteLine("How many sub-tasks? Limit 20.");
+
             
             int listLength = int.Parse(Console.ReadLine());
 
@@ -65,16 +79,14 @@ public class Checklist : Task
                 throw new ArgumentOutOfRangeException();
             }
             
+            Console.WriteLine("How many points for completing your list?\nSuggestions: Easy - 5, Medium - 15, Hard - 35, Very hard - 100");
+            SetCompleteReward(int.Parse(Console.ReadLine()));
             
             for (int i = 0; i< listLength; i++)
             {
                 var subTask = createSubTask(i);
-                subTask.ParentChecklist = this; // Set the parent reference
-                this.listedTasks.Add(subTask);
+                this._listedTasks.Add(subTask);
             }
-
-            Console.WriteLine("How many points for completing your list?\nSuggestions: Easy - 5, Medium - 15, Hard - 35, Very hard - 100");
-            completeReward = int.Parse(Console.ReadLine());
             return this;
         }
         catch (FormatException)

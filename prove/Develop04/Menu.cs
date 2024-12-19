@@ -104,15 +104,15 @@ public class Menu
             int taskNumber = tasks.IndexOf(task)+1;
             if (task is Checklist checklist)
             {
-                Console.WriteLine($"{taskNumber}. {task.taskName} ({checklist.itemsDone}/{checklist.GetListedTasks().Count()})");
+                Console.WriteLine($"{taskNumber}. {task.GetTaskName()} ({checklist.GetItemsDone()}/{checklist.GetListedTasks().Count()})");
             }
-            else if (task.complete == true)
+            else if (task.GetComplete() == true)
             {
-                Console.WriteLine($"{taskNumber}. {task.taskName} *");
+                Console.WriteLine($"{taskNumber}. {task.GetTaskName()} *");
             }
             else
             {
-                Console.WriteLine($"{taskNumber}. {task.taskName}");
+                Console.WriteLine($"{taskNumber}. {task.GetTaskName()}");
             }
         }
         Console.WriteLine ("Enter to close, or select the number of a Checklist to see details.");
@@ -129,8 +129,8 @@ public class Menu
 
             if (tasks[taskIndex] is Checklist c)
             {
-                Console.WriteLine($"Task name: {tasks[taskIndex].taskName}");
-                Console.WriteLine($"Completion Reward: {tasks[taskIndex].completeReward}");
+                Console.WriteLine($"Task name: {tasks[taskIndex].GetTaskName()}");
+                Console.WriteLine($"Completion Reward: {tasks[taskIndex].GetCompleteReward()}");
                 Console.WriteLine($"Task type: {tasks[taskIndex].GetType().Name}");
 
                 seeTasks(c.GetListedTasks());
@@ -138,8 +138,8 @@ public class Menu
 
             else
             {
-                Console.WriteLine($"Task name: {tasks[taskIndex].taskName}");
-                Console.WriteLine($"Completion Reward: {tasks[taskIndex].completeReward} points");
+                Console.WriteLine($"Task name: {tasks[taskIndex].GetTaskName()}");
+                Console.WriteLine($"Completion Reward: {tasks[taskIndex].GetCompleteReward()} points");
                 Console.WriteLine($"Task type: {tasks[taskIndex].GetType().Name}");
                 Console.WriteLine("Enter to return");
                 Console.ReadLine();
@@ -163,15 +163,15 @@ public class Menu
         {
             if (task is Checklist checklist)
             {
-                Console.WriteLine($"{tasks.IndexOf(task)+1}. {task.taskName} ({checklist.itemsDone}/{checklist.GetListedTasks().Count()})");
+                Console.WriteLine($"{tasks.IndexOf(task)+1}. {task.GetTaskName()} ({checklist.GetItemsDone()}/{checklist.GetListedTasks().Count()})");
             }
-            else if (task.complete == true)
+            else if (task.GetComplete() == true)
             {
-                Console.WriteLine($"{tasks.IndexOf(task)+1}. {task.taskName} *");
+                Console.WriteLine($"{tasks.IndexOf(task)+1}. {task.GetTaskName()} *");
             }
             else
             {
-                Console.WriteLine($"{tasks.IndexOf(task)+1}. {task.taskName}");
+                Console.WriteLine($"{tasks.IndexOf(task)+1}. {task.GetTaskName()}");
             }
         }
         
@@ -262,7 +262,7 @@ public class Menu
             {
                 throw new IndexOutOfRangeException();
             }
-            else if (taskList[completedTaskIndex].complete == true)
+            else if (taskList[completedTaskIndex].GetComplete() == true)
             {
                 changeSystemMessage("That task is already complete.");
                 displayUserData();

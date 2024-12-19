@@ -5,10 +5,17 @@ public class Subtask : Task
 
     private Checklist _parent = new();
 
+    private int _listReward;
+
     Player currentPlayer = Player.GetCurrentPlayer();
 
 
     //behaviors (member functions or *methods*)
+
+    public void SetListReward(int reward)
+    {
+        _listReward = reward;
+    }
 
     public Checklist GetParent()
     {
@@ -20,20 +27,23 @@ public class Subtask : Task
     }
     public override void completeTask()
     {
-        currentPlayer.gainScore(completeReward);
-        complete = true;
+        currentPlayer.gainScore(GetCompleteReward());
+        SetComplete(true);
         bool allComplete = true;
         foreach (Subtask s in _parent.GetListedTasks())
         {
-            if (s.complete == false)
+            if (s.GetComplete() == false)
             {
                 allComplete = false;
             }
+        }
         if (allComplete == true)
         {
+            currentPlayer.gainScore(_listReward);
+
             _parent.completeTask();
         }
-        }
+        
     }
 
 }

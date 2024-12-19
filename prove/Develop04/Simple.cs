@@ -14,13 +14,13 @@ public class Simple : Task
         Simple newTask = new();
 
         Console.WriteLine("Name your task");
-        newTask.taskName = Console.ReadLine();
+        newTask.SetTaskName(Console.ReadLine());
 
         Console.WriteLine("How many points for completing your task?\nSuggestions: Easy - 5, Medium - 15, Hard - 35, Very hard - 100");
         //make sure the user knows how to type in a number
         try
         {
-            newTask.completeReward = int.Parse(Console.ReadLine());
+            newTask.SetCompleteReward(int.Parse(Console.ReadLine()));
             return newTask;
         }
         catch
@@ -36,8 +36,8 @@ public class Simple : Task
 
     public override void completeTask()
     {
-        currentPlayer.gainScore(completeReward);
-        complete = true;
+        currentPlayer.gainScore(GetCompleteReward());
+        SetComplete(true);
         //remove self from list
         currentPlayer.GetPlayerTasks().Remove(this);
     }

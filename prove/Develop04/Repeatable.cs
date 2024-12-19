@@ -15,13 +15,13 @@ public class Repeatable : Task
         Repeatable newTask = new();
 
         Console.WriteLine("Name your task");
-        newTask.taskName = Console.ReadLine();
+        newTask.SetTaskName(Console.ReadLine());
 
         Console.WriteLine("How many points for completing your task?\nSuggestions: Easy - 5, Medium - 15, Hard - 35, Very hard - 100");
         //make sure the user knows how to type in a number
         try
         {
-            newTask.completeReward = int.Parse(Console.ReadLine());
+            newTask.SetCompleteReward(int.Parse(Console.ReadLine()));
             return newTask;
         }
         catch
@@ -36,7 +36,7 @@ public class Repeatable : Task
 
     public override void completeTask()
     {
-        currentPlayer.gainScore(completeReward);
+        currentPlayer.gainScore(GetCompleteReward());
         _completions++;
     }
 

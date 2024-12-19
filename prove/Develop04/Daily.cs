@@ -3,25 +3,33 @@ public class Daily : Task
 {
     //attributes (member variables)
 
-    public int dailyStreak;
+    private int _dailyStreak;
 
-    Player currentPlayer = Player.GetCurrentPlayer();
+    Player _currentPlayer = Player.GetCurrentPlayer();
 
 
     //behaviors (member functions or *methods*)
+    public int GetDailyStreak()
+    {
+        return _dailyStreak;
+    }
+    public void SetDailyStreak(int dailyStreak)
+    {
+        _dailyStreak = dailyStreak;
+    }
 
     public override Task createTask()
     {
         Daily newTask = new();
 
         Console.WriteLine("Name your task");
-        newTask.taskName = Console.ReadLine();
+        newTask.SetTaskName(Console.ReadLine());
 
         Console.WriteLine("How many points for completing your task?\nSuggestions: Easy - 5, Medium - 15, Hard - 35, Very hard - 100");
         //make sure the user knows how to type in a number
         try
         {
-            newTask.completeReward = int.Parse(Console.ReadLine());
+            newTask.SetCompleteReward(int.Parse(Console.ReadLine()));
             return newTask;
         }
         catch
@@ -37,15 +45,15 @@ public class Daily : Task
 
     public override void completeTask()
     {
-        if (complete == false)
+        if (GetComplete() == false)
         {
-            currentPlayer.gainScore(completeReward);
-            complete = true;
-            dailyStreak += 1;
+            _currentPlayer.gainScore(GetCompleteReward());
+            SetComplete(true);
+            _dailyStreak += 1;
         }
         else
         {
-            Menu.changeSystemMessage($"Daily task {taskName} already complete");
+            Menu.changeSystemMessage($"Daily task {GetTaskName()} already complete");
         }
     }
     
